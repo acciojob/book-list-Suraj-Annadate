@@ -8,7 +8,77 @@
 
 <body>
 	<!-- the entire body must be written by student -->
+	<h1>MyBookList</h1>
+	<div class="form-group">
+		<form id="book-form">
+		<label for="title">Title</label><br>
+		<input type="text" id="title" required><br>
+
+		<label for="author">Author</label><br>
+		<input type="text" id="author" required><br>
+
+		<label for="isbn">ISBN</label><br>
+		<input type="number" id="isbn" required><br>
+
+			 <input type="submit" id="submit" value="Submit">
+		</form>
+	</div
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Author</th>
+					<th>ISBN</th>
+				</tr>
+			</thead>
+<tbody id="book-list"></tbody>
+		</table>
     <script type="text/javascript" src="./script.js">
+		 const form = document.getElementById('book-form');
+    const bookList = document.getElementById('book-list');
+    
+    form.addEventListener('submit', addBook);
+    bookList.addEventListener('click', deleteBook);
+    
+    function addBook(event) {
+      event.preventDefault();
+      
+      const title = document.getElementById('title').value;
+      const author = document.getElementById('author').value;
+      const isbn = document.getElementById('isbn').value;
+      
+      const row = document.createElement('tr');
+      
+      const titleData = document.createElement('td');
+      titleData.textContent = title;
+      row.appendChild(titleData);
+      
+      const authorData = document.createElement('td');
+      authorData.textContent = author;
+      row.appendChild(authorData);
+      
+      const isbnData = document.createElement('td');
+      isbnData.textContent = isbn;
+      row.appendChild(isbnData);
+      
+      const deleteButton = document.createElement('td');
+      deleteButton.classList.add('delete');
+      deleteButton.textContent = 'X';
+      row.appendChild(deleteButton);
+      
+      bookList.appendChild(row);
+      
+      // Clear input fields
+      document.getElementById('title').value = '';
+      document.getElementById('author').value = '';
+      document.getElementById('isbn').value = '';
+    }
+    
+    function deleteBook(event) {
+      if (event.target.classList.contains('delete')) {
+        event.target.parentElement.remove();
+      }
+    }
 </script>
 
 </body>
